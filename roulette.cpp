@@ -1,26 +1,37 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include "roulette.h"
+#include "logic.cpp"
 
 int main()
 {
+    int selection;
     int bet;
-    std::cout << "Roulette game " << std::endl;
-    std::cout << "Enter your bet" << std::endl;
-    std::cin>> bet;
+    int current_money;
+    int base_money = 1000;
+    std::cout << "Roulette game!\n\n" << "Please choose what you wish to do: "<< std::endl;
+    std::cout << "Start new game (press [1]). \n" << "Continue game (press [2]). \n"<< "Exit (press [3])." << std::endl;
 
-    int roulette_numbers[3][12] = {
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12},
-        {13, 14, 15, 16, 17, 18, 19, 20 , 21, 22, 23, 24},
-        {25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 , 36}
-    };
 
-    srand(time(0));
-    //int random_number = (rand() % (36 - 1 + 1)) + 1;
-    int random_number = (rand() % (36)) + 1;
+    std::cout << "Select the bet you would like to place: \n" << "Single bet (press [1])\n" << "Split bet (press [2])" << std::endl;
+    std::cin>> selection;
+    
+    int random_number = winning_number();
     std::cout << random_number << std::endl;
 
-    if (bet == random_number)
+    switch (selection) {
+        case 1:
+        {
+        std::vector<int> vec = single_bet();
+        bet = count(vec.begin(), vec.end(), random_number);
+        break;
+        }
+        case 2:
+        {
+        std::vector<int> vec = split_bet();
+        bet = count(vec.begin(), vec.end(), random_number);
+        break;
+        }
+    }
+    if (bet > 0)
     {
         std::cout<<"You have won!" << std::endl;
 
