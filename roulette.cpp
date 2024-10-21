@@ -40,5 +40,10 @@ int main()
     {
         std::cout<<"You have lost." << std::endl;
     }
+    std::cout<<"adjacent numbers for your bet: " <<std::endl;
+    for (int adj : adjacent_numbers(bet)){
+        std::cout << adj << " \n";
+    }
+    std::cout << std::endl;
     
 }
