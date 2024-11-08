@@ -133,15 +133,20 @@ std::vector<std::vector<int>> get_square(int x){
 
 std::vector<int> select_square(std::vector<std::vector<int>>& squares){
 
+    int squareChoice;
+    int squareBet;
     std::cout<<"SQUARE OPTIONS:\n";
-    for (int i = 0; i < squares.size(); ++i){
+    for (int i = 0; i < squares.size(); i++){
         std::cout<<"\nSquare number " << i + 1<< ": "<< std::endl;
         for (auto sqr : squares[i]){
             std::cout<< sqr << " ";
         }
         std::cout << "\n";
     }
+    std::cout<<"Select the square you wish to choose: "<<std::endl;
+    std::cin>>squareChoice;
 
+    return squares[squareChoice-1];
 }
 
 int check_if_number_in_vector(int number, std::vector<int> vec){
@@ -197,7 +202,6 @@ std::vector<int> square_bet(){
     std::cout << "Square bet - bet on any intersection between 4 numbers, please input a number of the square you wish to bet on: "<< std::endl;
     std::cin>>bet1;
     std::vector<std::vector<int>> squares = get_square(bet1);
-    select_square(squares);
     
-    return {1};
+    return select_square(squares);
 }
