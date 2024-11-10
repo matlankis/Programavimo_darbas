@@ -4,28 +4,24 @@
 int main()
 {
     int selection;
-    int bet;
+    bool bet;
     int current_money;
     int base_money = 1000;
     std::cout << "Roulette game!\n\n" << "Please choose what you wish to do: "<< std::endl;
     std::cout << "Start new game (press [1]). \n" << "Continue game (press [2]). \n"<< "Exit (press [3])." << std::endl;
 
 
-    std::cout << "Select the bet you would like to place: \n" << "Single bet (press [1])\n" << "Split bet (press [2])\n" << "Street bet (press [3])\n" << "Square bet (press [4])" << "Line bet (press [5])" << std::endl;
+    std::cout << "Select the bet you would like to place: \n" << "Single bet (press [1])\n" << "Split bet (press [2])\n" << "Street bet (press [3])\n" << "Square bet (press [4])\n" << "Line bet (press [5])" << std::endl;
     std::cin>> selection;
     
     int random_number = winning_number();
     std::cout << random_number << std::endl;
 
-    switch (selection) {
+   /* switch (selection) {
         case 1:
         {
         std::vector<int> vec = single_bet();
         bet = check_if_number_in_vector(random_number, vec);
-        //std::cout<<"adjacent numbers for your bet: " <<std::endl;
-        //for (int adj : adjacent_numbers(bet)){
-        //std::cout << adj << " \n";
-        //}
         break;
         }
         case 2:
@@ -52,17 +48,40 @@ int main()
         bet = check_if_number_in_vector(random_number,vec);
         break;
         }
+        case 6:
+        {
+        std::vector<int> vec = collum_bet();
+        bet = check_if_number_in_vector(random_number,vec);
+        break;
+        }
+        case 7:
+        {
+        std::vector<int> vec = dozens_bet();
+        bet = check_if_number_in_vector(random_number,vec);
+        break;
+        }
+        case 8:
+        {
+        std::vector<int> vec = high_low_bet();
+        bet = check_if_number_in_vector(random_number,vec);
+        break;
+        }
+        case 9:
+        {
+        std::vector<int> vec = odd_even_bet();
+        bet = check_if_number_in_vector(random_number,vec);
+        break;
+        }
+        case 10:
+        {
+        std::vector<int> vec = red_black_bet();
+        bet = check_if_number_in_vector(random_number,vec);
+        break;
+        }
     }
-    if (bet > 0)
-    {
-        std::cout<<"\nYou have won!" << std::endl;
+    */
+    bool bet_won = check_bet(selection,random_number);
 
-    }
-    else
-    {
-        std::cout<<"\nYou have lost." << std::endl;
-    }
-  
-    std::cout << std::endl;
+    std::cout << (bet_won ? "You won!" : "You lost.") << std::endl;
     
 }
