@@ -1,5 +1,7 @@
 #include "logic.cpp" 
 
+
+std::map<int, std::string> dict;
 //.................
 //.................
 // INLINE BETS 
@@ -245,20 +247,77 @@ std::vector<int> red_black_bet(){
 //.................
 //.................
 
-bool check_bet(int selection, int random_number) {
-    std::vector<int> vec;
-    switch (selection) {
-        case 1: vec = single_bet(); break;
-        case 2: vec = split_bet(); break;
-        case 3: vec = street_bet(); break;
-        case 4: vec = square_bet(); break;
-        case 5: vec = line_bet(); break;
-        case 6: vec = collum_bet(); break;
-        case 7: vec = dozens_bet(); break;
-        case 8: vec = high_low_bet(); break;
-        case 9: vec = odd_even_bet(); break;
-        case 10: vec = red_black_bet(); break;
-        default: return false;  
+void create_dictionary(std::map<int, std::string>& dict){
+
+        dict[1] = "Single bet";
+        dict[2] = "Split bet";
+        dict[3] = "Street bet";
+        dict[4] = "Square bet";
+        dict[5] = "Line bet";
+        dict[6] = "Collum bet";
+        dict[7] = "Dozens bet";
+        dict[8] = "High or low bet";
+        dict[9] = "Odd or even bet";
+        dict[10] = "Red or black bet";
+}
+
+std::vector<bet> place_bets(){
+
+    std::map<int, std::string> dict;
+    std::vector<bet> bets;
+    double amount;
+    int bet_choice;
+    char more_bets = 'y';
+    create_dictionary(dict);
+
+    do{
+        bet my_bets;
+        std::cout<<"What type of bet would you like to place?\n";
+        for (auto it : dict){
+            std::cout <<"Choose " <<it.first << " for " << it.second << std::endl;
+        }
+        std::cin>> bet_choice;
+        my_bets.type = bet_choice;
+        my_bets.name = dict[bet_choice];
+
+        switch (bet_choice) {
+                case 1: my_bets.numbers = single_bet(); break;
+                case 2: my_bets.numbers = split_bet(); break;
+                case 3: my_bets.numbers = street_bet(); break;
+                case 4: my_bets.numbers = square_bet(); break;
+                case 5: my_bets.numbers = line_bet(); break;
+                case 6: my_bets.numbers = collum_bet(); break;
+                case 7: my_bets.numbers = dozens_bet(); break;
+                case 8: my_bets.numbers = high_low_bet(); break;
+                case 9: my_bets.numbers = odd_even_bet(); break;
+                case 10: my_bets.numbers = red_black_bet(); break;
+                default: std::cout<<"Incorrect bet type choisen\n";  
+            }
+
+        std::cout<<"What amount of money would you like to place on this bet?\n";
+        std::cin>>amount;
+        my_bets.wager = amount;
+
+        bets.push_back(my_bets);
+        
+        std::cout<<"Do you wish to place more bets? (Press y if true)\n";
+        std::cin>>more_bets;
     }
-    return check_if_number_in_vector(random_number, vec);
+    while (more_bets == 'y' || more_bets == 'Y');
+
+    return bets;
+}
+
+void check_if_won(std::vector<bet> bets, int winning_number){
+
+    for (bet Bet : bets){
+        bool bet_won = check_if_number_in_vector(winning_number, Bet.numbers);
+        if(bet_won){
+            std::cout<<Bet.name << " won with wager " << Bet.wager << "!" <<std::endl;
+        }
+        else{
+            std::cout<< Bet.name << " lost with wager " << Bet.wager << "!" <<std::endl;
+        }
+    }
+
 }

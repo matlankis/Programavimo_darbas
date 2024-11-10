@@ -209,3 +209,10 @@ bool numbers_match(int number1, int number2) {
 
     return number1 == number2;
 }
+
+struct bet{
+    double wager; //amount to bet on
+    std::vector<int> numbers; //numbers the bet covers
+    int type; // the bet type itself
+    std::string name;
+};
