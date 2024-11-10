@@ -91,7 +91,7 @@ std::vector<std::vector<int>> get_square(int x){
 
     std::vector<int> index = get_position(x);
     std::vector<std::vector <int>> available_squares;
-    std::vector<int> square;
+    //std::vector<int> square;
     int row = index.front();
     int collum = index.back();
 
@@ -133,8 +133,7 @@ std::vector<std::vector<int>> get_square(int x){
 
 std::vector<int> select_square(std::vector<std::vector<int>>& squares){
 
-    int squareChoice;
-    int squareBet;
+    int square_choice;
     std::cout<<"SQUARE OPTIONS:\n";
     for (int i = 0; i < squares.size(); i++){
         std::cout<<"\nSquare number " << i + 1<< ": "<< std::endl;
@@ -144,9 +143,57 @@ std::vector<int> select_square(std::vector<std::vector<int>>& squares){
         std::cout << "\n";
     }
     std::cout<<"Select the square you wish to choose: "<<std::endl;
-    std::cin>>squareChoice;
+    std::cin>>square_choice;
 
-    return squares[squareChoice-1];
+    return squares[square_choice-1];
+}
+// TODO:
+// modify this function
+// there is probably a way to do this that is way better 
+std::vector<std::vector<int>> get_adjacent_lines(int x){
+    
+    std::vector<int> index = get_position(x);
+    std::vector<std::vector <int>> available_adjacent_lines;
+    std::vector<int> current_line;
+
+    int row = index.front();
+
+    //available_adjacent_lines.push_back(get_line(x));
+
+    if(row - 1 >= 0){
+        current_line = get_line(x);
+        std::vector<int> above_line = get_line(x-3);
+        current_line.insert(current_line.begin(), above_line.begin(), above_line.end());
+        available_adjacent_lines.push_back(current_line);
+        current_line.clear();
+    }
+    
+    if(row + 1 < 12){
+        current_line = get_line(x);
+        std::vector<int> below_line = get_line(x+3);
+        current_line.insert(current_line.begin(), below_line.begin(), below_line.end());
+        available_adjacent_lines.push_back(current_line);
+        current_line.clear();
+    }
+
+    return available_adjacent_lines;
+}
+
+std::vector<int> select_adjacent_lines(std::vector<std::vector <int>>& lines){
+
+    int adjacent_lines_choice;
+    std::cout<<"ADJACENT LINE OPTIONS:";
+    for(int i=0; i < lines.size(); i++){
+        std::cout<<"\nLines number " << i + 1<< ": "<< std::endl;
+        for (auto line : lines[i]){
+            std::cout<< line << " ";
+        }
+        std::cout << "\n";
+    }
+    std::cout<<"Select the lines you wish to choose: "<<std::endl;
+    std::cin>>adjacent_lines_choice;
+
+    return lines[adjacent_lines_choice-1];
 }
 
 int check_if_number_in_vector(int number, std::vector<int> vec){
@@ -154,7 +201,7 @@ int check_if_number_in_vector(int number, std::vector<int> vec){
     int x = count(vec.begin(), vec.end(), number);
     return x;
 }
-
+/*
 std::vector<int> single_bet(){
 
     std::cout << "Single number bet - bet on any number 0 - 36, enter the number you would like to bet on: " << std::endl;
@@ -205,3 +252,14 @@ std::vector<int> square_bet(){
     
     return select_square(squares);
 }
+
+std::vector<int> line_bet(){
+
+    int bet1;
+    std::cout << "Line bet - bet on two adjacent rows of the roulette table, please input a number of the line you wish to bet on: "<< std::endl;
+    std::cin>>bet1;
+    std::vector<std::vector<int>> adjacent_lines = get_adjacent_lines(bet1);
+
+    return select_adjacent_lines(adjacent_lines);
+}
+*/

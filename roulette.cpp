@@ -1,5 +1,5 @@
 #include "roulette.h"
-#include "logic.cpp"
+#include "bets.cpp"
 
 int main()
 {
@@ -11,7 +11,7 @@ int main()
     std::cout << "Start new game (press [1]). \n" << "Continue game (press [2]). \n"<< "Exit (press [3])." << std::endl;
 
 
-    std::cout << "Select the bet you would like to place: \n" << "Single bet (press [1])\n" << "Split bet (press [2])\n" << "Street bet (press [3])\n" << "Square bet (press [4])" << std::endl;
+    std::cout << "Select the bet you would like to place: \n" << "Single bet (press [1])\n" << "Split bet (press [2])\n" << "Street bet (press [3])\n" << "Square bet (press [4])" << "Line bet (press [5])" << std::endl;
     std::cin>> selection;
     
     int random_number = winning_number();
@@ -43,6 +43,12 @@ int main()
         case 4:
         {
         std::vector<int> vec = square_bet();
+        bet = check_if_number_in_vector(random_number,vec);
+        break;
+        }
+        case 5:
+        {
+        std::vector<int> vec = line_bet();
         bet = check_if_number_in_vector(random_number,vec);
         break;
         }
