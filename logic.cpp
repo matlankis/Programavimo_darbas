@@ -215,4 +215,5 @@ struct bet{
     std::vector<int> numbers; //numbers the bet covers
     int type; // the bet type itself
     std::string name;
+    int multiplier; //the multiplier for the winnings
 };

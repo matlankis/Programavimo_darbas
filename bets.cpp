@@ -1,7 +1,7 @@
 #include "logic.cpp" 
 
 
-std::map<int, std::string> dict;
+//std::map<int, std::string> dict;
 //.................
 //.................
 // INLINE BETS 
@@ -247,7 +247,7 @@ std::vector<int> red_black_bet(){
 //.................
 //.................
 
-void create_dictionary(std::map<int, std::string>& dict){
+/*void create_dictionary(std::map<int, std::string>& dict){
 
         dict[1] = "Single bet";
         dict[2] = "Split bet";
@@ -260,25 +260,55 @@ void create_dictionary(std::map<int, std::string>& dict){
         dict[9] = "Odd or even bet";
         dict[10] = "Red or black bet";
 }
+*/
+
+std::map <int, std::string> bet_names = {
+    
+    {1, "Single bet"},
+    {2, "Split bet"},
+    {3, "Street bet"},
+    {4, "Square bet"},
+    {5, "Line bet"},
+    {6, "Collum bet"},
+    {7, "Dozens bet"},
+    {8, "High or low bet"},
+    {9, "Odd or even bet"},
+    {10, "Red or black bet"},
+};
+
+std::map <std::string, int> multipliers = {
+
+    {"Single bet", 35},
+    {"Split bet", 17},
+    {"Street bet", 11},
+    {"Square bet", 8},
+    {"Line bet", 5},
+    {"Collum bet", 2},
+    {"Dozens bet", 2},
+    {"High or low bet", 1},
+    {"Odd or even bet", 1},
+    {"Red or black bet", 1},
+};
 
 std::vector<bet> place_bets(){
 
-    std::map<int, std::string> dict;
+    //std::map<int, std::string> dict;
     std::vector<bet> bets;
     double amount;
     int bet_choice;
     char more_bets = 'y';
-    create_dictionary(dict);
+    //create_dictionary(dict);
 
     do{
         bet my_bets;
         std::cout<<"What type of bet would you like to place?\n";
-        for (auto it : dict){
+        for (auto it : bet_names){
             std::cout <<"Choose " <<it.first << " for " << it.second << std::endl;
         }
         std::cin>> bet_choice;
         my_bets.type = bet_choice;
-        my_bets.name = dict[bet_choice];
+        my_bets.name = bet_names[bet_choice];
+        my_bets.multiplier = multipliers[bet_names[bet_choice]];
 
         switch (bet_choice) {
                 case 1: my_bets.numbers = single_bet(); break;
@@ -291,7 +321,7 @@ std::vector<bet> place_bets(){
                 case 8: my_bets.numbers = high_low_bet(); break;
                 case 9: my_bets.numbers = odd_even_bet(); break;
                 case 10: my_bets.numbers = red_black_bet(); break;
-                default: std::cout<<"Incorrect bet type choisen\n";  
+                default: std::cout<<"Incorrect bet type chosen\n";  
             }
 
         std::cout<<"What amount of money would you like to place on this bet?\n";
@@ -308,16 +338,19 @@ std::vector<bet> place_bets(){
     return bets;
 }
 
-void check_if_won(std::vector<bet> bets, int winning_number){
+double check_if_won(std::vector<bet> bets, int winning_number, double& money){
 
     for (bet Bet : bets){
         bool bet_won = check_if_number_in_vector(winning_number, Bet.numbers);
         if(bet_won){
             std::cout<<Bet.name << " won with wager " << Bet.wager << "!" <<std::endl;
+            money = money + (Bet.wager*Bet.multiplier);
         }
         else{
             std::cout<< Bet.name << " lost with wager " << Bet.wager << "!" <<std::endl;
+            money = money - Bet.wager;
         }
     }
 
+    return money;
 }
