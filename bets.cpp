@@ -292,12 +292,10 @@ std::map <std::string, int> multipliers = {
 
 std::vector<bet> place_bets(){
 
-    //std::map<int, std::string> dict;
     std::vector<bet> bets;
     double amount;
     int bet_choice;
     char more_bets = 'y';
-    //create_dictionary(dict);
 
     do{
         bet my_bets;

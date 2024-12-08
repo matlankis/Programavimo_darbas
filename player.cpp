@@ -14,3 +14,4 @@ void assign_player_stats(double money, std::string name){
     player.money = money;
 
 }
+
