@@ -23,8 +23,15 @@ int main()
     }
     else if (choice == 2){
 
-        load_game(name, money);
-        //some logic for continuing game
+        if(!load_game(name, money)){
+
+            std::cout << "Starting a new game, since there are no saved games\n";
+            std::cout << "Please enter your name\n";
+            std::cin >> name;
+            money = 1000;
+            assign_player_stats(money, name);
+        }
+        
     }
     else if (choice == 3){
         std::cout << "Exiting the game.";
