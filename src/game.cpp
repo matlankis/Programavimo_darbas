@@ -2,8 +2,6 @@
 #include "bets.cpp"
 #include "player.cpp"
 
-
-
 void display_menu(){
 
     std::cout << "Please choose what you would like to do: \n";
@@ -72,18 +70,18 @@ bool load_game(std::string& playerName, double& money) {
 
 void play_game(std::string player_name, double money){
 
-    char playChoice;
-    char saveChoice;
+    char play_choice;
+    char save_choice;
     int count;
     
     std::cout<< "\nHello, " << player_name;
     do{
         std::cout << "!\nYou have $" << money << ".\n";
         std::cout << "Would you like to play a round? (y/n)\n";
-        std::cin >> playChoice;
-        if (playChoice == 'y' || playChoice == 'Y'){
-             int random_number = winning_number();
-            std::cout << random_number << std::endl;   
+        std::cin >> play_choice;
+        if (play_choice == 'y' || play_choice == 'Y'){
+            int random_number = winning_number();
+            //std::cout << random_number << std::endl;   
 
             std::vector<bet> bets = place_bets(money);
             check_if_won(bets, random_number, money);
@@ -93,17 +91,17 @@ void play_game(std::string player_name, double money){
             }
             std::cout << "Your current balance is: " << money;
         }
-        else if (playChoice == 'n' || playChoice == 'N'){
+        else if (play_choice == 'n' || play_choice == 'N'){
             std::cout << "Would you like to save your game? (y/n)\n";
-            std::cin >> saveChoice;
+            std::cin >> save_choice;
             
-            if (saveChoice == 'y' || saveChoice == 'Y'){
+            if (save_choice == 'y' || save_choice == 'Y'){
                 save_game(player_name, money);
             }
 
             break;
         }
     }
-    while (playChoice == 'y' || playChoice == 'Y');
+    while (play_choice == 'y' || play_choice == 'Y');
 
 }

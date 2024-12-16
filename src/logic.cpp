@@ -25,9 +25,9 @@ int winning_number(){
     return random_number;
 };
 
-int get_valid_input_number_range(int min, int max){
+int get_valid_input_number_range(double min, double max){
 
-    int input;
+    double input;
     while (true){
         if(std::cin>>input){
             if(input >= min && input<= max){

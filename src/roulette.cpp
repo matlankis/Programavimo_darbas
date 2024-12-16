@@ -12,7 +12,7 @@ int main()
     
     std::cout << "Roulette game!\n\n";
     display_menu();
-    std::cin >> choice;
+    choice = get_valid_input_number_range(1,3);
 
     if (choice == 1){
 

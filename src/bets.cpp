@@ -1,6 +1,5 @@
 #include "logic.cpp" 
 
-
 //std::map<int, std::string> dict;
 //.................
 //.................
@@ -287,6 +286,7 @@ std::vector<bet> place_bets(double& money){
             std::cout <<"Choose " <<it.first << " for " << it.second << std::endl;
         }
         bet_choice=get_valid_input_number_range(1,10);
+
         my_bets.type = bet_choice;
         my_bets.name = bet_names[bet_choice];
         my_bets.multiplier = multipliers[bet_names[bet_choice]];
@@ -333,6 +333,5 @@ double check_if_won(std::vector<bet> bets, int winning_number, double& money){
             //money = money - Bet.wager;
         }
     }
-
     return money;
 }
