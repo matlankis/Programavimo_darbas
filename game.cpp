@@ -85,8 +85,12 @@ void play_game(std::string player_name, double money){
              int random_number = winning_number();
             std::cout << random_number << std::endl;   
 
-            std::vector<bet> bets = place_bets();
+            std::vector<bet> bets = place_bets(money);
             check_if_won(bets, random_number, money);
+            if (money <= 0){
+                std::cout << "You have run out of money\n";
+                break;
+            }
             std::cout << "Your current balance is: " << money;
         }
         else if (playChoice == 'n' || playChoice == 'N'){

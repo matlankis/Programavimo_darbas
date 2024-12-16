@@ -25,6 +25,46 @@ int winning_number(){
     return random_number;
 };
 
+int get_valid_input_number_range(int min, int max){
+
+    int input;
+    while (true){
+        if(std::cin>>input){
+            if(input >= min && input<= max){
+                return input;
+            }
+            else{
+                std::cout<< "Invalid number, please enter a number between " << min << " and " << max <<std::endl;
+            }
+        }
+        else {
+        std::cout<<"Invalid input. Please enter an integer.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+}
+
+int get_valid_input_number_vector(std::vector<int>& options){
+    
+    int input;
+    while (true){
+        if(std::cin>>input){
+            for (int option : options){
+                if (input == option){
+                    return input;
+                }
+            }
+            std::cout<< "Invalid number, please select a number from the given options\n";
+        }
+        else {
+        std::cout<<"Invalid input. Please enter an integer.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+}
+
 std::vector<int> get_position(int x){
 
     std::vector<int> position;
@@ -146,7 +186,7 @@ std::vector<int> select_square(std::vector<std::vector<int>>& squares){
         std::cout << "\n";
     }
     std::cout<<"Select the square you wish to choose: "<<std::endl;
-    std::cin>>square_choice;
+    square_choice = get_valid_input_number_range(1,squares.size());
 
     return squares[square_choice-1];
 }
@@ -194,7 +234,7 @@ std::vector<int> select_adjacent_lines(std::vector<std::vector <int>>& lines){
         std::cout << "\n";
     }
     std::cout<<"Select the lines you wish to choose: "<<std::endl;
-    std::cin>>adjacent_lines_choice;
+    adjacent_lines_choice=get_valid_input_number_range(1,lines.size());
 
     return lines[adjacent_lines_choice-1];
 }
@@ -205,7 +245,7 @@ bool check_if_number_in_vector(int number, std::vector<int> vec){
     return x;
 }
 
-bool numbers_match(int number1, int number2) {
+bool numbers_match(int number1, int number2){
 
     return number1 == number2;
 }
